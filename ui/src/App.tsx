@@ -4,7 +4,6 @@ import './App.css'; // Import the custom CSS file for styling
 import { AppointmentsList } from './components/ListAppointments/ListAppointments';
 import { ToastContainer } from 'react-toastify';
 
-
 function App() {
   return (
     <>
