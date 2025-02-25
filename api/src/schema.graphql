@@ -1,0 +1,38 @@
+scalar Date
+
+type Salon {
+  id: Int!
+  name: String!
+  location: String!
+}
+
+type Appointment {
+  id: Int!
+  customerName: String!
+  serviceName: String!
+  appointmentTime: Date!
+  salon: Salon!
+  service: Service!
+}
+
+type Service {
+  id: Int!
+  name: String!
+  price: String!
+  salon: Salon!
+}
+
+type Query {
+  salons: [Salon!]!
+  appointments: [Appointment!]!
+  servicesBySalonId(salonId: Int!): [Service!]!
+}
+
+type Mutation {
+  createAppointment(
+    customerName: String!
+    serviceName: String!
+    appointmentTime: Date!
+    salonId: Int!
+  ): Appointment!
+}
