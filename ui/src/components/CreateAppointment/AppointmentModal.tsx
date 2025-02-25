@@ -15,6 +15,5 @@ export const AppointmentModal: FC<AppointmentModalProps> = ({ isOpen, handleClos
         <Modal.Body>
             {children}
         </Modal.Body>
-
     </Modal>
 )

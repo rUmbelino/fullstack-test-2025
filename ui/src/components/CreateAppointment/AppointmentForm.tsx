@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useMemo, useState } from "react"
 import { Alert, Button, Form } from "react-bootstrap"
 import { useAppointments } from "./useAppointments"
 
@@ -16,7 +16,15 @@ export const AppointmentForm: FC<AppointmentFormProps> = ({ closeModal }) => {
         salons, services, selectedSalonId, selectedServiceName
     } = useAppointments()
 
-    const shouldDisableButton = !customerName || !selectedSalonId || !selectedServiceName || !appointmentTime
+    const shouldDisableButton = useMemo(() => {
+        return !customerName || !selectedSalonId || !selectedServiceName || !appointmentTime
+    }, [customerName, selectedSalonId, selectedServiceName, appointmentTime])
+
+
+    const isSalonWithoutServices = useMemo(() => {
+        return selectedSalonId > 0 && services.length === 0
+    }, [selectedSalonId, services])
+
 
     const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -28,7 +36,6 @@ export const AppointmentForm: FC<AppointmentFormProps> = ({ closeModal }) => {
         return <Alert variant='danger'>At least one salon is required to create an appointment</Alert>
     }
 
-    const isSalonWithoutServices = selectedSalonId > 0 && services.length === 0
 
     return (
         <Form className="text-dark" onSubmit={onSubmitForm}>
